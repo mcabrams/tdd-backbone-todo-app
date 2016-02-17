@@ -1,13 +1,14 @@
 'use strict';
 
-var gulp = require('gulp');
-var assign = require('lodash').assign;
-var browserify = require('browserify');
-var buffer = require('vinyl-buffer');
-var gutil = require('gulp-util');
-var source = require('vinyl-source-stream');
-var sourcemaps = require('gulp-sourcemaps');
-var watchify = require('watchify');
+var gulp = require('gulp'),
+    assign = require('lodash').assign,
+    browserify = require('browserify'),
+    buffer = require('vinyl-buffer'),
+    gutil = require('gulp-util'),
+    mocha = require('gulp-mocha'),
+    source = require('vinyl-source-stream'),
+    sourcemaps = require('gulp-sourcemaps'),
+    watchify = require('watchify');
 
 // add custom browserify options here
 var customOpts = {
@@ -37,3 +38,11 @@ function bundle() {
     .pipe(sourcemaps.write('./')) // writes .map file
     .pipe(gulp.dest('./dist'));
 }
+
+gulp.task('test', function() {
+  return gulp.src(['test/test-*.js'], { read: false })
+    .pipe(mocha({
+      ui: 'tdd',
+      reporter: 'spec'
+    }));
+});

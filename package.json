@@ -11,7 +11,9 @@
   "dependencies": {
     "backbone": "^1.2.3",
     "browserify": "^13.0.0",
+    "chai": "^3.5.0",
     "gulp": "^3.9.1",
+    "gulp-mocha": "^2.2.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-util": "^3.0.7",
     "jquery": "^2.2.0",
