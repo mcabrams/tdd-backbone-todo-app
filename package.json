@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "functional-test": "casperjs test functional_tests/test.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -11,6 +12,7 @@
   "dependencies": {
     "backbone": "^1.2.3",
     "browserify": "^13.0.0",
+    "casperjs": "^1.1.0-beta5",
     "chai": "^3.5.0",
     "gulp": "^3.9.1",
     "gulp-mocha": "^2.2.0",
@@ -18,6 +20,7 @@
     "gulp-util": "^3.0.7",
     "jquery": "^2.2.0",
     "lodash": "^4.3.0",
+    "phantomjs-prebuilt": "^2.1.4",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"
