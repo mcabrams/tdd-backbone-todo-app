@@ -5,22 +5,27 @@
   "main": "index.js",
   "scripts": {
     "functional-test": "casperjs test functional_tests/test.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mochify --ui=tdd --recursive --colors"
   },
-  "author": "",
+  "author": "Matt Abrams",
   "license": "ISC",
   "dependencies": {
-    "backbone": "^1.2.3",
+    "backbone": "^1.3.2",
+    "backbone.localstorage": "^1.1.16",
     "browserify": "^13.0.0",
     "casperjs": "^1.1.0-beta5",
     "chai": "^3.5.0",
+    "express": "^4.13.4",
     "gulp": "^3.9.1",
     "gulp-mocha": "^2.2.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-util": "^3.0.7",
     "jquery": "^2.2.0",
     "lodash": "^4.3.0",
-    "phantomjs-prebuilt": "^2.1.4",
+    "mocha": "^2.4.5",
+    "mochify": "^2.17.0",
+    "phantomjs": "^2.1.3",
+    "sinon": "^1.17.3",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"

@@ -6,6 +6,7 @@ var gulp = require('gulp'),
     buffer = require('vinyl-buffer'),
     gutil = require('gulp-util'),
     mocha = require('gulp-mocha'),
+    mochify = require('mochify'),
     source = require('vinyl-source-stream'),
     sourcemaps = require('gulp-sourcemaps'),
     watchify = require('watchify');
@@ -40,9 +41,13 @@ function bundle() {
 }
 
 gulp.task('test', function() {
-  return gulp.src(['test/test-*.js'], { read: false })
-    .pipe(mocha({
-      ui: 'tdd',
-      reporter: 'spec'
-    }));
+  return mochify('./test/**/*.js', {
+    ui: 'tdd',
+    reporter: 'dot'
+  }).bundle();
+  // gulp.src(['test/**/test-*.js'], { read: false })
+    // .pipe(mocha({
+      // ui: 'tdd',
+      // reporter: 'dot'
+    // }));
 });
