@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "functional-test": "casperjs test functional_tests/test.js",
-    "test": "mochify --ui=tdd --recursive --colors"
+    "test": "mochify --transform=stringify --ui=tdd --recursive --colors"
   },
   "author": "Matt Abrams",
   "license": "ISC",
@@ -26,6 +26,7 @@
     "mochify": "^2.17.0",
     "phantomjs": "^2.1.3",
     "sinon": "^1.17.3",
+    "stringify": "^5.1.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"

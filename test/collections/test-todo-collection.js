@@ -2,8 +2,8 @@
 
 var assert = require('chai').assert;
 
-var Todo = require('../../src/models/todo'),
-    TodoCollection = require('../../src/collections/todo-collection');
+var Todo = require('../../src/js/models/todo'),
+    TodoCollection = require('../../src/js/collections/todo-collection');
 
 suite('TodoCollection', function() {
   test('contains the Todo model class', function() {
