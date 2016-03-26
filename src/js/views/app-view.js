@@ -1,18 +1,28 @@
 'use strict';
 
-var jQuery = require('jquery');
-var Backbone = require('backbone');
+var jQuery = require('jquery'),
+    Backbone = require('backbone'),
+    _ = require('lodash');
+
 Backbone.$ = jQuery;
+
+var appTemplate = require('../../templates/app.html'),
+    TodosView = require('./todos-view');
 
 var AppView = Backbone.View.extend({
   el: '#app-view',
 
-  initialize: function(options) {
-    this.todos = options.todos;
+  template: _.template(appTemplate),
+
+  initialize: function() {
+    this.render();
   },
 
-  createTodo: function(todo) {
-    this.todos.create(todo);
+  render: function() {
+    var todosView = new TodosView();
+    this.$el.html(this.template());
+    this.$el.append(todosView.render().el);
+    return this;
   }
 });
 

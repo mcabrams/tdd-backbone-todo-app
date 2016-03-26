@@ -1,15 +1,18 @@
-var assert = require('chai').assert;
+'use strict';
+
+var assert = require('chai').assert,
+    $ = require('jquery');
 
 var AppView = require('../../src/js/views/app-view');
-var TodoCollection = require('../../src/js/collections/todo-collection');
 
 suite('AppView', function() {
-  test('can create a todo', function() {
-    var todoCollection = new TodoCollection();
-    var appView = new AppView({todos: todoCollection});
+  test('can render todos', function() {
+    var $fixture = $('<div></div>');
+    $fixture.attr('id', 'app-view');
+    $('body').append($fixture);
 
-    appView.createTodo({});
+    var appView = new AppView();
 
-    assert.equal(todoCollection.length, 1)
+    assert.equal(appView.$el.find('#todo-list').length, 1);
   });
 });

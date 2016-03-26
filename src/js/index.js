@@ -1,2 +1,8 @@
-var Backbone = require('backbone'),
-    _ = require('lodash');
+'use strict';
+var AppView = require('./views/app-view');
+var $ = require('jquery');
+
+
+$(function() {
+  new AppView();
+});

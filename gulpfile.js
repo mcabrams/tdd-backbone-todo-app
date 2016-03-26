@@ -5,10 +5,10 @@ var gulp = require('gulp'),
     browserify = require('browserify'),
     buffer = require('vinyl-buffer'),
     gutil = require('gulp-util'),
-    mocha = require('gulp-mocha'),
     mochify = require('mochify'),
     source = require('vinyl-source-stream'),
     sourcemaps = require('gulp-sourcemaps'),
+    stringify = require('stringify'),
     watchify = require('watchify');
 
 // add custom browserify options here
@@ -17,7 +17,7 @@ var customOpts = {
   debug: true
 };
 var opts = assign({}, watchify.args, customOpts);
-var b = watchify(browserify(opts));
+var b = watchify(browserify(opts).transform(stringify()));
 
 // add transformations here
 // i.e. b.transform(coffeeify);
@@ -36,9 +36,17 @@ function bundle() {
     // optional, remove if you dont want sourcemaps
     .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
      // Add transformation tasks to the pipeline here.
+      // .pipe(stringify())
     .pipe(sourcemaps.write('./')) // writes .map file
     .pipe(gulp.dest('./dist'));
 }
+
+gulp.task('html', function() {
+  gulp.src('./index.html')
+    .pipe(gulp.dest('./dist/'));
+});
+
+gulp.task('build', ['html', 'js']);
 
 gulp.task('test', function() {
   return mochify('./test/**/*.js', {

@@ -7,12 +7,20 @@ var jQuery = require('jquery'),
 Backbone.$ = jQuery;
 
 var TodoView = require('./todo-view'),
+    TodoCollection = require('../collections/todo-collection'),
     todosTemplate = require('../../templates/todos.html');
+
+var ENTER_KEY = 13;
 
 var TodosView = Backbone.View.extend({
   tagname: 'div',
 
   template: _.template(todosTemplate),
+
+  events: {
+    'keypress #new-todo-description': 'submitOnEnter',
+    'submit #new-todo-form': 'createOnSubmit'
+  },
 
   render: function() {
     this.$el.html(this.template());
@@ -21,7 +29,10 @@ var TodosView = Backbone.View.extend({
   },
 
   initialize: function(options) {
-    this.todos = options.todos;
+    options = options || {};
+    this.todos = options.todos || new TodoCollection();
+
+    this.listenTo(this.todos, 'all', this.render);
   },
 
   addOneTodo: function(todo) {
@@ -32,6 +43,34 @@ var TodosView = Backbone.View.extend({
   addAllTodos: function() {
     this.$('#todo-list').empty();
     this.todos.each(this.addOneTodo, this);
+  },
+
+  extractTodoDescription: function() {
+    return this.$('#new-todo-description').val() || '';
+  },
+
+  newTodoAttributes: function() {
+    return {
+      description: this.extractTodoDescription(),
+      completed: false
+    };
+  },
+
+  submitOnEnter: function(event) {
+    if (event.which != ENTER_KEY) {
+      return;
+    }
+
+    event.preventDefault();
+
+    this.$('#new-todo-form').submit();
+  },
+
+  createOnSubmit: function(event) {
+    event.preventDefault();
+
+    var newAttributes = this.newTodoAttributes();
+    this.createTodo(newAttributes);
   },
 
   createTodo: function(todo) {
