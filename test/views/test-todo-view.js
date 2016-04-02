@@ -23,7 +23,7 @@ suite('TodoView', function() {
         todoView = new TodoView(todo);
 
     todoView.render();
-    assert.equal(todoView.$el.find('.completion-status').attr('checked'), 'checked');
+    assert.equal(todoView.$el.find('.completion-checkbox').attr('checked'), 'checked');
   });
 
   test('renders todo with todo description', function() {
@@ -41,7 +41,32 @@ suite('TodoView', function() {
         todoView = new TodoView(todo);
 
     todoView.render();
-    todoView.$el.find('.completion-status').change();
+    todoView.$el.find('.completion-checkbox').change();
     assert.isTrue(toggleSpy.calledOnce);
+    TodoView.prototype.toggle.restore();
+  });
+
+  test('can destroy todo', function() {
+    var destroySpy = sinon.spy(Todo.prototype, 'destroy'),
+        todo = new Todo({completed: false});
+    todo.save();
+
+    var todoView = new TodoView(todo);
+    todoView.clear();
+
+    assert.isTrue(destroySpy.calledOnce);
+    Todo.prototype.destroy.restore();
+  });
+
+  test('clear called on remove click', function() {
+    var clearSpy = sinon.spy(TodoView.prototype, 'clear');
+    var todo = new Todo({completed: false}),
+        todoView = new TodoView(todo);
+
+    todoView.render();
+    todoView.$el.find('.clear-button').trigger('click');
+
+    assert.isTrue(clearSpy.calledOnce);
+    TodoView.prototype.clear.restore();
   });
 });

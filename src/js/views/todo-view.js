@@ -14,7 +14,8 @@ var TodoView = Backbone.View.extend({
   },
 
   events: {
-    'change .completion-status': 'toggle'
+    'change .completion-checkbox': 'toggle',
+    'click .clear-button': 'clear'
   },
 
   template: _.template(todoTemplate),
@@ -26,6 +27,10 @@ var TodoView = Backbone.View.extend({
 
   toggle: function() {
     this.todo.toggle();
+  },
+
+  clear: function() {
+    this.todo.destroy();
   }
 });
 

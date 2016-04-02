@@ -2,7 +2,8 @@
   <span><%= this.todo.get("description") %></span>
   <input
     type="checkbox"
-    class="completion-status"
+    class="completion-checkbox"
     <% if (this.todo.get("completed")) { %>checked<% } %>
   >
+  <button class="clear-button">Remove</button>
 </li>
