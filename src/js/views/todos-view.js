@@ -31,8 +31,9 @@ var TodosView = Backbone.View.extend({
   initialize: function(options) {
     options = options || {};
     this.todos = options.todos || new TodoCollection();
-
     this.listenTo(this.todos, 'all', this.render);
+
+    this.todos.fetch();
   },
 
   addOneTodo: function(todo) {

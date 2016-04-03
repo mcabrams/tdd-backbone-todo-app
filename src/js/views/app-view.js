@@ -7,6 +7,7 @@ var jQuery = require('jquery'),
 Backbone.$ = jQuery;
 
 var appTemplate = require('../../templates/app.html'),
+    TodoCollection = require('../collections/todo-collection'),
     TodosView = require('./todos-view');
 
 var AppView = Backbone.View.extend({
@@ -19,7 +20,8 @@ var AppView = Backbone.View.extend({
   },
 
   render: function() {
-    var todosView = new TodosView();
+    var todoCollection = new TodoCollection(),
+        todosView = new TodosView({todos: todoCollection});
     this.$el.html(this.template());
     this.$el.append(todosView.render().el);
     return this;

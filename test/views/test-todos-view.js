@@ -35,10 +35,14 @@ suite('TodosView', function() {
   });
 
   test('can add all todos', function() {
-    var todo1 = new Todo();
-    var todo2 = new Todo();
-    var todoCollection = new TodoCollection([todo1, todo2]);
+    var todoCollection = new TodoCollection();
     var todosView = new TodosView({todos: todoCollection});
+
+    for (var i = 0; i < 2; i++) {
+      var todo = {};
+      todosView.todos.create(todo);
+    }
+
     todosView.render();
     todosView.addAllTodos();
 
@@ -46,10 +50,14 @@ suite('TodosView', function() {
   });
 
   test('displays all todos on render', function() {
-    var todo1 = new Todo();
-    var todo2 = new Todo();
-    var todoCollection = new TodoCollection([todo1, todo2]);
+    var todoCollection = new TodoCollection();
     var todosView = new TodosView({todos: todoCollection});
+
+    for (var i = 0; i < 2; i++) {
+      var todo = {};
+      todosView.todos.create(todo);
+    }
+
     todosView.render();
 
     assert.equal(todosView.$el.find('li').length, 2);
@@ -147,11 +155,25 @@ suite('TodosView', function() {
   test('updating collection re-renders view', function() {
     var renderSpy = sinon.spy(TodosView.prototype, 'render');
     var todosView = new TodosView();
-    todosView.render();
 
     todosView.todos.trigger('update');
     assert.equal(renderSpy.callCount, 2); // Once initially, once for updated
                                           // collection.
     TodosView.prototype.render.restore();
+  });
+
+  /* TODO: Fix */
+  test.only('fetches previous collection of todos', function() {
+    var todoCollection = new TodoCollection();
+    var todosView = new TodosView({todos: todoCollection});
+
+    for (var i = 0; i < 2; i++) {
+      var todo = {};
+      todosView.todos.create(todo);
+    }
+
+    var newTodosView = new TodosView({todos: todoCollection});
+    newTodosView.render();
+    assert.equal(newTodosView.$el.find('li').length, 2);
   });
 });

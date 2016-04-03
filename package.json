@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "functional": "gulp build && casperjs test functional_tests/test.js",
+    "functional": "gulp build && casperjs test functional_tests/test.js --local-storage-path=\"\"",
     "test": "mochify --transform=stringify --ui=tdd --recursive --colors"
   },
   "author": "Matt Abrams",
