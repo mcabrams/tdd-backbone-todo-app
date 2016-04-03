@@ -1,12 +1,22 @@
 /* global casper */
 'use strict';
 
-casper.test.begin('our local server can be opened', 13, function(test) {
+casper.test.begin('our local server can be opened', 15, function(test) {
   // Chris visits the todo list site
   casper.start('http://localhost:3003', function() {
     test.assertResourceExists('bundle.js');
+    test.assertResourceExists('main.css');
     // Chris sees the main app view
     test.assertExists('#app-view');
+
+    // Chris sees the header is red (style smoketest)
+    test.assertEvalEquals(function() {
+      var heading = document.getElementsByTagName('h1')[0];
+      var red = 'rgb(255, 0, 0)';
+      return red === getComputedStyle(heading, null).color;
+    }, true);
+
+    // Chris sees the header says Todo App
     test.assertSelectorHasText('h1', 'Todo App');
     // Chris sees no todos listed
     test.assertElementCount('#todo-list li', 0);

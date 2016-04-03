@@ -52,12 +52,17 @@ gulp.task('js', function() {
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('html', function() {
-  gulp.src('./index.html')
+gulp.task('css', function() {
+  gulp.src('./src/css/main.css')
     .pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('build', ['html', 'js']);
+gulp.task('html', function() {
+  gulp.src('./src/index.html')
+    .pipe(gulp.dest('./dist/'));
+});
+
+gulp.task('build', ['html', 'js', 'css']);
 
 gulp.task('test', function() {
   return mochify('./test/**/*.js', {
