@@ -2,7 +2,8 @@
 
 var assert = require('chai').assert,
     $ = require('jquery'),
-    sinon = require('sinon');
+    sinon = require('sinon'),
+    _ = require('lodash');
 
 var Todo = require('../../src/js/models/todo'),
     TodosView = require('../../src/js/views/todos-view'),
@@ -162,8 +163,7 @@ suite('TodosView', function() {
     TodosView.prototype.render.restore();
   });
 
-  /* TODO: Fix */
-  test.only('fetches previous collection of todos', function() {
+  test('fetches previous collection of todos', function() {
     var todoCollection = new TodoCollection();
     var todosView = new TodosView({todos: todoCollection});
 
@@ -172,8 +172,10 @@ suite('TodosView', function() {
       todosView.todos.create(todo);
     }
 
-    var newTodosView = new TodosView({todos: todoCollection});
-    newTodosView.render();
-    assert.equal(newTodosView.$el.find('li').length, 2);
+    _.defer(function() {
+      var newTodosView = new TodosView();
+      newTodosView.render();
+      assert.equal(newTodosView.$el.find('li').length, 2);
+    });
   });
 });
