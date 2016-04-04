@@ -4,9 +4,12 @@ var gulp = require('gulp'),
     assign = require('lodash').assign,
     browserify = require('browserify'),
     buffer = require('vinyl-buffer'),
+    del = require('del'),
     gutil = require('gulp-util'),
     mochify = require('mochify'),
+    runSequence = require('run-sequence'),
     source = require('vinyl-source-stream'),
+    sass = require('gulp-sass'),
     sourcemaps = require('gulp-sourcemaps'),
     stringify = require('stringify'),
     watchify = require('watchify');
@@ -52,8 +55,11 @@ gulp.task('js', function() {
     .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('css', function() {
-  gulp.src('./src/css/main.css')
+gulp.task('sass', function() {
+  return gulp.src('./src/scss/main.scss')
+    .pipe(sourcemaps.init())
+    .pipe(sass().on('error', sass.logError))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest('./dist/'));
 });
 
@@ -62,8 +68,15 @@ gulp.task('html', function() {
     .pipe(gulp.dest('./dist/'));
 });
 
-gulp.task('build', ['html', 'js', 'css']);
+gulp.task('clean', function(cb) {
+  return del(['./dist/'], cb);
+});
 
+gulp.task('build', function(callback) {
+  runSequence('clean', ['html', 'js', 'sass'], callback);
+});
+
+/* Not currently used */
 gulp.task('test', function() {
   return mochify('./test/**/*.js', {
     ui: 'tdd',
