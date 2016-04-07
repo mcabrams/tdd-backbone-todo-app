@@ -13,7 +13,8 @@ var TodoView = require('./todo-view'),
 var ENTER_KEY = 13;
 
 var TodosView = Backbone.View.extend({
-  tagname: 'div',
+  tagName: 'div',
+  className: 'todo-list',
 
   template: _.template(todosTemplate),
 

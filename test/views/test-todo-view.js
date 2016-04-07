@@ -15,7 +15,7 @@ suite('TodoView', function() {
         todoView = new TodoView(todo);
 
     todoView.render();
-    assert.equal(todoView.$el.find('li').length, 1);
+    assert.equal(todoView.$el.find('span').length, 1);
   });
 
   test('renders completed todo as checked', function() {
@@ -32,7 +32,7 @@ suite('TodoView', function() {
         todoView = new TodoView(todo);
 
     todoView.render();
-    assert.include(todoView.$el.find('li').text(), description);
+    assert.include(todoView.$el.find('span').text(), description);
   });
 
   test('can toggle a todo', function() {

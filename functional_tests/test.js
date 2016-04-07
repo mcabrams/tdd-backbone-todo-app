@@ -11,9 +11,8 @@ casper.test.begin('our local server can be opened', 15, function(test) {
 
     // Chris sees the header is red (style smoketest)
     test.assertEvalEquals(function() {
-      var heading = document.getElementsByTagName('h1')[0];
-      var red = 'rgb(255, 0, 0)';
-      return red === getComputedStyle(heading, null).color;
+      var todolist = document.getElementsByClassName('todo-list')[0];
+      return 'rgb(236, 238, 239)' === getComputedStyle(todolist, null).backgroundColor;
     }, true);
 
     // Chris sees the header says Todo App

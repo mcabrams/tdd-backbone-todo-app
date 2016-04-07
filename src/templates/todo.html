@@ -1,9 +1,9 @@
-<li>
-  <span><%= this.todo.get("description") %></span>
+<li class="todo <% if (this.todo.get("completed")) { %>completed<% } %>">
   <input
     type="checkbox"
     class="completion-checkbox"
     <% if (this.todo.get("completed")) { %>checked<% } %>
   >
+  <span><%= this.todo.get("description") %></span>
   <button class="clear-button">Remove</button>
 </li>
